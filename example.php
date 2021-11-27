@@ -55,7 +55,7 @@ window.addEventListener('load', (e) => {
 <?php if ($status == -9): ?>
   <h2>Requests are only accepted through secure connections</h2>
 <?php elseif ($status == 1): ?>
-  <h2>Thank you</b> for contacting 2dengine support!</h2>
+  <h2>Thank you</b> for contacting us!</h2>
   We will get back to you using the provided email address
 <?php else: ?>
 
