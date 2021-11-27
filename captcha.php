@@ -93,7 +93,7 @@ class Captcha {
   function generate($code) {
     if (!$code)
       return false;
-    $this->lock($code);
+    //$this->lock($code);
     
     $file = $this->path;
 
