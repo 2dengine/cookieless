@@ -32,7 +32,7 @@ class Captcha {
     $this->code = $code;
     // flood prevention
     $mod = @filemtime($this->path);
-    if ($mod and time() - $mod < COOLDOWN)
+    while ($mod and time() - $mod < COOLDOWN)
       sleep(COOLDOWN);
     @touch($this->path);
   }
