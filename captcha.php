@@ -62,6 +62,7 @@ class Captcha {
     $lines = explode("\n", trim($cont));
     for ($i = 0; $i < count($lines); $i++) {
       $d = explode(",", $lines[$i]);
+      if (count($d) != 4) continue;
       $this->data[] = array(
         'code' => $d[0],
         'solution' => $d[1],
