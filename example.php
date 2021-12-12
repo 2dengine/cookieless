@@ -32,23 +32,11 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
 
 if ($status == 0)
   $code = rand(0, 1000000);
+
+// disable caching
+header("Cache-Control: no-cache, must-revalidate");
+header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 ?>
-<script type="text/javascript">
-function refresh(n) {
-  if (n == null)
-    n = Math.floor(Math.random()*1000000);
-  let e = document.getElementById('puzzle');
-  let c = document.getElementById('code');
-  if (!e || !c) return;
-  e.src = 'captcha/?code='+n;
-  c.value = n;
-}
-window.addEventListener('load', (e) => {
-  let code = '<?= $code ?>';
-  if (code)
-    refresh(code);
-});
-</script>
 
 <div>
   <h1>Contact form</h1>
@@ -56,7 +44,6 @@ window.addEventListener('load', (e) => {
   <h2>Requests are only accepted through secure connections</h2>
 <?php elseif ($status == 1): ?>
   <h2>Thank you</b> for contacting us!</h2>
-  We will get back to you using the provided email address
 <?php else: ?>
 
 <?php if ($status == -1): ?>
@@ -71,15 +58,19 @@ window.addEventListener('load', (e) => {
   <h2>Please try again later</h2>
 <?php endif; ?>
   <form method="POST">
-    What is your email address?<br>
-    <input type="text" name="email" class="full" value="<?= htmlentities($email) ?>" required>
-    How may we help you?<br>
+    Email address<br>
+    <input type="text" name="email" class="full" value="<?= htmlentities($email) ?>" required></input>
+    <br>
+    Message<br>
     <textarea name="message" rows="6" class="full" required><?= htmlentities($message) ?></textarea>
     <br>
-    <input type="hidden" name="code" value="<?= $code ?>" id="code">
-    <img src="captcha/?code=<?= $code ?>" id="puzzle" onclick="javascript:refresh();"><br>
-    <input type="text" name="solution" class="full" autocomplete="off" required>
-    <button onclick="javascript:this.disabled=true; this.form.submit();">Submit</button>
+    Verification code
+    <br>
+    <input type="hidden" name="code" value="<?= $code ?>" id="code"></input>
+    <img src="index.php?code=<?= $code ?>" id="puzzle" onclick="javascript:refresh();"><br>
+    <input type="text" name="solution" class="full" autocomplete="off" required></input>
+    <br>
+    <input type="submit" onclick="javascript:this.disabled=true; this.form.submit();"></input>
   </form>
 <?php endif; ?>
 
